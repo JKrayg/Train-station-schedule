@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/CSS/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/CSS/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Station Schedule</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Train Schedule</h1>
+        </header>
+        <table style="width: 100%;" border="1">
+            <tr>
+                <th>Train Name:</th>
+                <th>Destination:</th>
+                <th>Frequency: (Min)</th>
+                <th>Next Arrival:</th>
+                <th>Minutes Away:</th>
+            </tr>
+            <tr>
+                <td>Thomas</td>
+                <td>Mars</td>
+                <td>15</td>
+                <td>10:30</td>
+                <td>15</td>
+            </tr>
+        </table>
+        <form>
+            <div class="form-group">
+              <label for="trainStationName">Train Name</label>
+              <input type="name" class="form-control" id="train-name">
+            </div>
+            <div class="form-group">
+              <label for="trainStationDestination">Destination</label>
+              <input type="text" class="form-control" id="destination-name">
+            </div>
+            <div class="form-group">
+                <label for="trainStationTime">First Train Time</label>
+                <input type="text" class="form-control" id="train-time">
+            </div>
+            <div class="form-group">
+                <label for="trainStationFrequency">Frequency</label>
+                <input type="text" class="form-control" id="time-freq">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="assets/javascript/script.js"></script>
+</body>
+</html>

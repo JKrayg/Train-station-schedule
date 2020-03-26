@@ -3,7 +3,7 @@ var firebaseConfig = {
     //
     //
     //Add API key!
-    apiKey: "AIzaSyD_-IWOWvOWHSuCkko7G0crYLy8YT2xQ8M",
+    apiKey: "",
     authDomain: "trainschedule-478a8.firebaseapp.com",
     databaseURL: "https://trainschedule-478a8.firebaseio.com",
     projectId: "trainschedule-478a8",
@@ -44,7 +44,7 @@ $("button").on("click", function (e) {
 
     //return info to html
     database.ref().on("value", function (info) {
-        
+
         var newTime = info.val().firstTrain;
         var newFreq = info.val().frequency;
 

@@ -1,13 +1,9 @@
+// Initialize firebase
 var firebaseConfig = {
     //
     //
-    //
-    //
-    //
-    //
-    //
     //Add API key!
-    apiKey: "",
+    apiKey: "AIzaSyD_-IWOWvOWHSuCkko7G0crYLy8YT2xQ8M",
     authDomain: "trainschedule-478a8.firebaseapp.com",
     databaseURL: "https://trainschedule-478a8.firebaseio.com",
     projectId: "trainschedule-478a8",
@@ -21,60 +17,81 @@ var database = firebase.database();
 
 
 
-
+// on.click function for submit button
 $("button").on("click", function (e) {
     e.preventDefault();
-    var tyme = new Date();
-
-    var currentHour = tyme.getHours();
-    var currentMinute = ("0" + tyme.getMinutes(currentMinute)).slice(-2);
-    var currentTime = currentHour + ":" + currentMinute;
-    //var nextTrain = currentTime ;
-
-    //currentMinute = currentMinute % 15;
-    //console.log(currentMinute);
+    //$("td").empty();
 
     var trainName = $("#train-name").val().trim();
     var destName = $("#destination-name").val().trim();
+    var trainTime = $("#train-time").val().trim();
     var timeFreq = $("#time-freq").val().trim();
-    
-    
 
-    database.ref().set({
-        trainName:trainName,
-        destName:destName,
-        timeFreq:timeFreq,
-        currentTime:currentTime
-    })
+    var newTrain = {
+        name: trainName,
+        destination: destName,
+        firstTrain: trainTime,
+        frequency: timeFreq
+    };
 
-    database.ref().on("value", function(info){
+
+    // Send info to firebase
+    database.ref().set(newTrain);
+
+    console.log(newTrain.name);
+    console.log(newTrain.destination);
+    console.log(newTrain.frequency);
+
+    //return info to html
+    database.ref().on("value", function (info) {
+        
+        var newTime = info.val().firstTrain;
+        var newFreq = info.val().frequency;
+
+
+        var firstTrainTime = moment(newTime, "hh:mm a").subtract(1, "years");
+        var currentTime = moment().format("HH:mm a");
+        console.log("Current Time:" + currentTime);
+
+        var timeDiff = moment().diff(moment(firstTrainTime), "minutes");
+        var timeLeft = timeDiff % newFreq;
+        var minutesAway = newFreq - timeLeft;
+        var nextArrival = moment().add(minutesAway, "minutes").format("hh:mm a");
+
+
+        // Store all table content into localStorage
+        localStorage.setItem("name", trainName);
+        localStorage.setItem("destination", destName);
+        localStorage.setItem("frequency", timeFreq);
+        localStorage.setItem("nextArrival", nextArrival);
+        localStorage.setItem("minutesAway", minutesAway);
+
+
         var newTR = $("<tr>").append(
-            $("<td>").text(info.val().trainName),
-            $("<td>").text(info.val().destName),
-            $("<td>").text(info.val().timeFreq),
-            $("<td>").text(info.val().currentTime)
+            $("<td>").text(localStorage.getItem("name")),
+            $("<td>").text(localStorage.getItem("destination")),
+            $("<td>").text(localStorage.getItem("frequency")),
+            $("<td>").text(localStorage.getItem("nextArrival")),
+            $("<td>").text(localStorage.getItem("minutesAway"))
+
         );
         newTR.appendTo("tbody");
+    
+
+        // Clear form
+        $('#train-name').val('');
+        $('#destination-name').val('');
+        $('#time-freq').val('');
+        $('#train-time').val('');
 
     })
+})
 
-    localStorage.clear();
-
-      // Store all content into localStorage
-        localStorage.setItem("trainName", trainName);
-        localStorage.setItem("destName", destName);
-        localStorage.setItem("timeFreq", timeFreq);
-        localStorage.setItem("currentTime", currentTime);
-    })
-
-    newTR = $("<tr>").append(
-        $("<td>").text(localStorage.getItem("trainName")),
-        $("<td>").text(localStorage.getItem("destName")),
-        $("<td>").text(localStorage.getItem("timeFreq")),
-        $("<td>").text(localStorage.getItem("currentTime"))
-    );
-
-    $('#train-name').val('');
-    $('#destination-name').val('');
-    $('#time-freq').val('');
-    $('#train-time').val('');
+newTR = $("<tr>").append(
+    $("<td>").text(localStorage.getItem("name")),
+    $("<td>").text(localStorage.getItem("destination")),
+    $("<td>").text(localStorage.getItem("frequency")),
+    $("<td>").text(localStorage.getItem("nextArrival")),
+    $("<td>").text(localStorage.getItem("minutesAway"))
+);
+newTR.appendTo("tbody");

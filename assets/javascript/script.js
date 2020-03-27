@@ -6,7 +6,7 @@ var firebaseConfig = {
     //
     //
     //Add API key!
-    apiKey: "AIzaSyD_-IWOWvOWHSuCkko7G0crYLy8YT2xQ8M",
+    apiKey: "",
     authDomain: "trainschedule-478a8.firebaseapp.com",
     databaseURL: "https://trainschedule-478a8.firebaseio.com",
     projectId: "trainschedule-478a8",

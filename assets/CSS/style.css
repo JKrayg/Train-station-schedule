@@ -1,18 +1,32 @@
-table{
-    border: 1px solid black;
-    border-collapse: unset;
-    text-align: center;
+body {
+    background: url(../images/citywide-philadelphia-skyline-16x9.jpg);
 }
 
-th{
+table {
+    border-radius: 10px;
+    border: slategray solid 1px;
+    border-collapse: unset;
+    text-align: center;
+    background-color: lightgray;
+}
+
+form {
+    border-radius: 10px;
+    border: slategray solid 1px;
+    padding: 10px;
+    background-color: lightgray;
+    opacity: 0.96;
+}
+
+th {
     text-decoration: underline;
 }
 
-td{
+td {
     text-align: center;
 }
 
-#current-time{
+#current-time {
     text-align: center;
     margin-bottom: 0;
 }
@@ -21,14 +35,25 @@ td{
     border-bottom: none;
 }
 
-h1{
+h1 {
     text-align: center;
     margin-top: 25px;
     font-family: "Josefin Sans", sans-serif;
 }
 
-header{
+header {
     border: 1px solid black;
     margin-bottom: 10px;
     background-color: #79c879;
+} 
+
+img {
+    height: 20px;
+    width: 20px;
+}
+
+#sub-button {
+    background-color: springgreen;
+    border-color: unset;
+    color: black;
 }

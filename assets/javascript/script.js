@@ -6,7 +6,7 @@ var firebaseConfig = {
     //
     //
     //Add API key!
-    apiKey: "",
+    apiKey: "AIzaSyD_-IWOWvOWHSuCkko7G0crYLy8YT2xQ8M",
     authDomain: "trainschedule-478a8.firebaseapp.com",
     databaseURL: "https://trainschedule-478a8.firebaseio.com",
     projectId: "trainschedule-478a8",
@@ -23,7 +23,6 @@ function update() {
     var currentTime = moment().format("hh:mm a");
     $("#current-time").html("Current Time: " + currentTime);
 }
-
 setInterval(update, 1000);
 
 
@@ -45,6 +44,14 @@ $("button").on("click", function (e) {
     var minutesAway = timeFreq - timeLeft;
     var nextArrival = moment().add(minutesAway, "minutes").format("hh:mm a");
 
+
+    function update() {
+        minutesAway = timeFreq - timeLeft;
+    }
+    setInterval(update, 1000);
+
+
+
     var newTrain = {
         name: trainName,
         destination: destName,
@@ -58,10 +65,13 @@ $("button").on("click", function (e) {
     // Send info to firebase
     database.ref().push(newTrain);
 
-
     console.log(newTrain.name);
     console.log(newTrain.destination);
+    console.log(newTrain.firstTrain);
     console.log(newTrain.frequency);
+    console.log(newTrain.nextArrival);
+    console.log(newTrain.minutesAway);
+
 
     $('#train-name').val('');
     $('#destination-name').val('');
@@ -71,12 +81,12 @@ $("button").on("click", function (e) {
 
 
 //return info to html
-database.ref().on("child_added", function (childSnapshot) {
-    var newName = childSnapshot.val().name;
-    var newDest = childSnapshot.val().destination;
-    var newFreq = childSnapshot.val().frequency;
-    var nextArr = childSnapshot.val().nextArrival;
-    var minAway = childSnapshot.val().minutesAway;
+database.ref().on("child_added", function (info) {
+    var newName = info.val().name;
+    var newDest = info.val().destination;
+    var newFreq = info.val().frequency;
+    var nextArr = info.val().nextArrival;
+    var minAway = info.val().minutesAway;
 
 
     var newRow = $("<tr>").append(
@@ -88,30 +98,4 @@ database.ref().on("child_added", function (childSnapshot) {
     );
     $(".table > tbody").append(newRow);
 
-    setInterval(function () {
-        minAway--;
-    }, 10000);
-
-    /*var firstTrainTime = moment(newTime, "hh:mm a").subtract(1, "years");
-    var currentTime = moment().format("HH:mm a");
-    console.log("Current Time:" + currentTime);
-
-    var timeDiff = moment().diff(moment(firstTrainTime), "minutes");
-    var timeLeft = timeDiff % newFreq;
-    var minutesAway = newFreq - timeLeft;
-    var nextArrival = moment().add(minutesAway, "minutes").format("hh:mm a");*/
-
-
-
-    /* Clear form
-    $('#train-name').val('');
-    $('#destination-name').val('');
-    $('#time-freq').val('');
-    $('#train-time').val('');*/
-
 })
-
-
-//if (performance.navigation.type == 1) {
-// alert("the page has been refreshed");
-//}

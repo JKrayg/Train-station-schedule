@@ -6,7 +6,7 @@ var firebaseConfig = {
     //
     //
     //Add API key!
-    apiKey: "",
+    apiKey: "AIzaSyD_-IWOWvOWHSuCkko7G0crYLy8YT2xQ8M",
     authDomain: "trainschedule-478a8.firebaseapp.com",
     databaseURL: "https://trainschedule-478a8.firebaseio.com",
     projectId: "trainschedule-478a8",
@@ -24,7 +24,6 @@ function update() {
     $("#current-time").html("Current Time: " + currentTime);
 }
 setInterval(update, 1000);
-
 
 
 
@@ -49,7 +48,6 @@ $("button").on("click", function (e) {
         minutesAway = timeFreq - timeLeft;
     }
     setInterval(update, 1000);
-
 
 
     var newTrain = {

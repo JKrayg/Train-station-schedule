@@ -45,6 +45,7 @@ header {
     border: 1px solid black;
     margin-bottom: 10px;
     background-color: #79c879;
+    border-radius: 10px;
 }
 
 img {
